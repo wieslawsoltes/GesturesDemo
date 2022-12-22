@@ -10,8 +10,8 @@
   <Canvas Name="ZoomCanvas" Width="300" Height="300" Background="WhiteSmoke">
 
     <Canvas.GestureRecognizers>
-      <input:PanGestureRecognizer />
-      <input:PinchToZoomGestureRecognizer />
+      <!-- <input:PanGestureRecognizer /> -->
+      <input:PinchToZoomGestureRecognizer IsZoomable="True" />
     </Canvas.GestureRecognizers>
 
     <Rectangle Canvas.Left="100" Canvas.Top="100" Width="100" Height="100" Fill="Red" />
