@@ -1,6 +1,8 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Media;
 
 namespace GesturesDemo;
 
@@ -10,14 +12,23 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         
-        ZoomCanvas.AddHandler(PinchToZoomGestureRecognizer.PinchToZoomEvent, (s, e) =>
+        PanAndZoomTransformControl.AddHandler(PinchToZoomGestureRecognizer.PinchToZoomEvent, (s, e) =>
         {
             Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}'");
+            var scale = e.Scale;
+            var offset = e.Offset;
+            var matrix = Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offset.X, offset.Y);
+            PanAndZoomTransformControl.LayoutTransform = new MatrixTransform(matrix);
         });
 
-        ZoomCanvas.AddHandler(PanGestureRecognizer.PanGestureEvent, (s, e) =>
+        PanAndZoomTransformControl.AddHandler(PanGestureRecognizer.PanGestureEvent, (s, e) =>
         {
             Console.WriteLine($"[Pan] GestureId='{e.GestureId}', Delta='{e.Delta}', Velocity='{e.Velocity}'");
+            // Create a matrix transform based on the pan event args
+            var matrix = Matrix.CreateTranslation(e.Delta.X, e.Delta.Y);
+
+            // Update the LayoutTransformControl's layout transform
+            PanAndZoomTransformControl.LayoutTransform = new MatrixTransform(matrix);
         });
     }
 }
