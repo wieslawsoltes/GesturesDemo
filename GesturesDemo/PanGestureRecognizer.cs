@@ -127,6 +127,7 @@ namespace Avalonia.Input
 
         private void EndGesture()
         {
+            _trackingPointers.Clear();
             _tracking = null;
             _initialPosition = default;
             _lastPosition = default;
