@@ -67,7 +67,7 @@ namespace Avalonia.Input
 
         public void PointerPressed(PointerPressedEventArgs e)
         {
-            if (_target != null && e.Pointer.IsPrimary &&
+            if (_target != null &&
                 (e.Pointer.Type == PointerType.Touch || e.Pointer.Type == PointerType.Pen))
             {
                 if (_trackingPointers.Count < RequiredPointers)
