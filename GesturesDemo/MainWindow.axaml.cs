@@ -12,12 +12,12 @@ public partial class MainWindow : Window
         
         ZoomCanvas.AddHandler(PinchToZoomGestureRecognizer.PinchToZoomEvent, (s, e) =>
         {
-            Console.WriteLine(e);
+            Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}'");
         });
 
         ZoomCanvas.AddHandler(PanGestureRecognizer.PanGestureEvent, (s, e) =>
         {
-            Console.WriteLine(e);
+            Console.WriteLine($"[Pan] GestureId='{e.GestureId}', Delta='{e.Delta}', Velocity='{e.Velocity}'");
         });
     }
 }
