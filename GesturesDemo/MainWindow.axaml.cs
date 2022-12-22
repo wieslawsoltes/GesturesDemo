@@ -24,10 +24,7 @@ public partial class MainWindow : Window
         PanAndZoomTransformControl.AddHandler(PanGestureRecognizer.PanGestureEvent, (s, e) =>
         {
             Console.WriteLine($"[Pan] GestureId='{e.GestureId}', Delta='{e.Delta}', Velocity='{e.Velocity}'");
-            // Create a matrix transform based on the pan event args
             var matrix = Matrix.CreateTranslation(e.Delta.X, e.Delta.Y);
-
-            // Update the LayoutTransformControl's layout transform
             PanAndZoomTransformControl.LayoutTransform = new MatrixTransform(matrix);
         });
     }
