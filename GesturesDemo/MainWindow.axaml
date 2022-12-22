@@ -7,12 +7,12 @@
         x:Class="GesturesDemo.MainWindow"
         Title="GesturesDemo">
 
-  <LayoutTransformControl Name="PanAndZoomTransformControl">
+  <Panel Name="PanAndZoomPanel" Background="Transparent">
 
-    <LayoutTransformControl.GestureRecognizers>
+    <Panel.GestureRecognizers>
       <input:PanGestureRecognizer RequiredPointers="3" />
       <input:PinchToZoomGestureRecognizer IsZoomable="True" />
-    </LayoutTransformControl.GestureRecognizers>
+    </Panel.GestureRecognizers>
 
     <Canvas Name="PanAndZoomCanvas" Width="300" Height="300" Background="WhiteSmoke">
 
@@ -20,6 +20,6 @@
 
     </Canvas>
 
-  </LayoutTransformControl>
+  </Panel>
 
 </Window>
