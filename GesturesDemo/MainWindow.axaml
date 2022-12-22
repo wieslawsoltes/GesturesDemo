@@ -11,7 +11,7 @@
 
     <Canvas.GestureRecognizers>
       <input:PanGestureRecognizer RequiredPointers="3" />
-      <!-- <input:PinchToZoomGestureRecognizer IsZoomable="True" /> -->
+      <input:PinchToZoomGestureRecognizer IsZoomable="True" />
     </Canvas.GestureRecognizers>
 
     <Rectangle Canvas.Left="100" Canvas.Top="100" Width="100" Height="100" Fill="Red" />
