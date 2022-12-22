@@ -65,6 +65,10 @@ namespace Avalonia.Input
 
         public void PointerPressed(PointerPressedEventArgs e)
         {
+            if (e.Pointer == _primaryPointer || e.Pointer == _secondaryPointer)
+            {
+                return;
+            }
             if (_primaryPointer == null)
             {
                 _primaryPointer = e.Pointer;
@@ -76,6 +80,10 @@ namespace Avalonia.Input
                 _secondaryPointer = e.Pointer;
                 _lastSecondaryTimestamp = e.Timestamp;
                 _initialSecondaryPosition = e.GetPosition((Visual?)_target);
+            }
+            else // More than two pointers already pressed, end gesture
+            {
+                EndGesture();
             }
         }
         
