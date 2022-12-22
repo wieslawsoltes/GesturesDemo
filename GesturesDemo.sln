@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GesturesDemo", "GesturesDemo\GesturesDemo.csproj", "{1248C845-0BD7-4E95-AE49-1A410D21C287}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{7BBCE62A-6A7B-4EEB-99F0-254E8862C008}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
+		NuGet.Config = NuGet.Config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75E5A925-0733-40EC-8D4B-FBF9907F232F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1248C845-0BD7-4E95-AE49-1A410D21C287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1248C845-0BD7-4E95-AE49-1A410D21C287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1248C845-0BD7-4E95-AE49-1A410D21C287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1248C845-0BD7-4E95-AE49-1A410D21C287}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1248C845-0BD7-4E95-AE49-1A410D21C287} = {75E5A925-0733-40EC-8D4B-FBF9907F232F}
+	EndGlobalSection
+EndGlobal
