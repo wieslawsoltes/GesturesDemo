@@ -14,5 +14,10 @@ public partial class MainWindow : Window
         {
             Console.WriteLine(e);
         });
+
+        ZoomCanvas.AddHandler(PanGestureRecognizer.PanGestureEvent, (s, e) =>
+        {
+            Console.WriteLine(e);
+        });
     }
 }
