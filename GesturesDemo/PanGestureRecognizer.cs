@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Avalonia;
@@ -30,7 +31,7 @@ namespace Avalonia.Input
         
     }
 
-    public class PanGestureRecognizer : IGestureRecognizer
+    public class PanGestureRecognizer : StyledElement, IGestureRecognizer
     {
         private IInputElement? _target;
         private IGestureRecognizerActionsDispatcher? _actions;
@@ -39,11 +40,25 @@ namespace Avalonia.Input
         private Point _lastPosition;
         private ulong? _lastMoveTimestamp;
         private int _gestureId;
+        private int _requiredPointers = 3;
+        private readonly HashSet<IPointer> _trackingPointers = new HashSet<IPointer>();
 
         public static readonly RoutedEvent<PanGestureEventArgs> PanGestureEvent =
             RoutedEvent.Register<PanGestureEventArgs>(
                 "PanGestureEvent", RoutingStrategies.Bubble, typeof(PanGestureEventArgs));
 
+        public static readonly DirectProperty<PanGestureRecognizer, int> RequiredPointersProperty =
+            AvaloniaProperty.RegisterDirect<PanGestureRecognizer, int>(
+                nameof(RequiredPointers),
+                o => o.RequiredPointers,
+                (o, v) => o.RequiredPointers = v);
+
+        public int RequiredPointers
+        {
+            get => _requiredPointers;
+            set => SetAndRaise(RequiredPointersProperty, ref _requiredPointers, value);
+        }
+        
         public void Initialize(IInputElement target, IGestureRecognizerActionsDispatcher actions)
         {
             _target = target;
@@ -55,17 +70,24 @@ namespace Avalonia.Input
             if (_target != null && e.Pointer.IsPrimary &&
                 (e.Pointer.Type == PointerType.Touch || e.Pointer.Type == PointerType.Pen))
             {
-                _gestureId = PanGestureEventArgs.GetNextFreeId();
-                _initialPosition = e.GetPosition((Visual?)_target);
-                _tracking = e.Pointer;
-                _lastPosition = _initialPosition;
-                _lastMoveTimestamp = e.Timestamp;
+                if (_trackingPointers.Count < RequiredPointers)
+                {
+                    _trackingPointers.Add(e.Pointer);
+                }
+
+                if (_trackingPointers.Count == RequiredPointers)
+                {
+                    _gestureId = PanGestureEventArgs.GetNextFreeId();
+                    _initialPosition = e.GetPosition((Visual?)_target);
+                    _lastPosition = _initialPosition;
+                    _lastMoveTimestamp = e.Timestamp;
+                }
             }
         }
 
         public void PointerMoved(PointerEventArgs e)
         {
-            if (_tracking == e.Pointer && _target is Visual visual)
+            if (_trackingPointers.Count == RequiredPointers && _target is Visual visual)
             {
                 var currentPosition = e.GetPosition(visual);
                 var elapsedTime = e.Timestamp - (_lastMoveTimestamp ?? 0);
@@ -84,9 +106,14 @@ namespace Avalonia.Input
 
         public void PointerReleased(PointerReleasedEventArgs e)
         {
-            if (_tracking == e.Pointer)
+            if (_trackingPointers.Contains(e.Pointer))
             {
-                EndGesture();
+                _trackingPointers.Remove(e.Pointer);
+
+                if (_trackingPointers.Count < RequiredPointers)
+                {
+                    EndGesture();
+                }
             }
         }
 
