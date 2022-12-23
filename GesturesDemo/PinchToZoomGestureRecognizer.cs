@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Avalonia.Input.GestureRecognizers;
 using Avalonia.Interactivity;
 
@@ -6,6 +7,10 @@ namespace Avalonia.Input
 {
     public class PinchToZoomGestureEventArgs : RoutedEventArgs
     {
+        private static int _nextFreeId;
+
+        public static int GetNextFreeId() => Interlocked.Increment(ref _nextFreeId);
+
         public PinchToZoomGestureEventArgs(int gestureId, double scale, Point offset, Vector velocity)
             : base(PinchToZoomGestureRecognizer.PinchToZoomEvent)
         {
@@ -77,6 +82,7 @@ namespace Avalonia.Input
             }
             else if (_secondaryPointer == null)
             {
+                _gestureId = PanGestureEventArgs.GetNextFreeId();
                 _secondaryPointer = e.Pointer;
                 _lastSecondaryTimestamp = e.Timestamp;
                 _initialSecondaryPosition = e.GetPosition((Visual?)_target);
