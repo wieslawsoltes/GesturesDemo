@@ -13,6 +13,8 @@ public class ZoomControl : Border
 
     public ZoomControl()
     {
+        BackgroundProperty.OverrideDefaultValue<ZoomControl>(Brushes.Transparent);
+
         AddHandler(PinchToZoomGestureRecognizer.PinchToZoomGestureEvent, OnPinchToZoom);
         AddHandler(PanGestureRecognizer.PanGestureEvent, OnPan);
     }
