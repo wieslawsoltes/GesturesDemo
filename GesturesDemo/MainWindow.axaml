@@ -7,18 +7,5 @@
         x:Class="GesturesDemo.MainWindow"
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
         Title="GesturesDemo">
-
-  <local:ZoomControl Name="PanAndZoomPanel">
-
-    <local:ZoomControl.GestureRecognizers>
-      <!-- <local:PanGestureRecognizer RequiredPointers="3" /> -->
-      <local:PinchToZoomGestureRecognizer IsZoomable="True" />
-    </local:ZoomControl.GestureRecognizers>
-
-    <Canvas Width="300" Height="300" Background="WhiteSmoke">
-      <Rectangle Canvas.Left="100" Canvas.Top="100" Width="100" Height="100" Fill="Red" />
-    </Canvas>
-
-  </local:ZoomControl>
-
+  <local:MainView />
 </Window>
