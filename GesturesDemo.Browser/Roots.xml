@@ -1,0 +1,5 @@
+<linker>
+  <assembly fullname="GesturesDemo" preserve="All" />
+  <assembly fullname="GesturesDemo.Browser" preserve="All" />
+  <assembly fullname="Avalonia.Themes.Fluent" preserve="All" />
+</linker>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0-ios</TargetFramework>
+        <SupportedOSPlatformVersion>15.0</SupportedOSPlatformVersion>
+        <ProvisioningType>manual</ProvisioningType>
+        <Nullable>enable</Nullable>
+        <RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
+        <RootNamespace>Solitaire.iOS</RootNamespace>
+        <UseInterpreter>True</UseInterpreter>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia.iOS" Version="$(AvaloniaVersion)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GesturesDemo\GesturesDemo.csproj" />
+        <ProjectReference Include="..\Solitaire\Solitaire.csproj" />
+    </ItemGroup>
+</Project>
