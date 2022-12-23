@@ -2,25 +2,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:input="clr-namespace:Avalonia.Input"
+        xmlns:local="clr-namespace:GesturesDemo"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GesturesDemo.MainWindow"
         Width="800" Height="450" WindowStartupLocation="CenterScreen"
         Title="GesturesDemo">
 
-  <Panel Name="PanAndZoomPanel" Background="Transparent">
+  <local:ZoomControl Name="PanAndZoomPanel">
 
-    <Panel.GestureRecognizers>
-      <!-- <input:PanGestureRecognizer RequiredPointers="3" /> -->
-      <input:PinchToZoomGestureRecognizer IsZoomable="True" />
-    </Panel.GestureRecognizers>
+    <local:ZoomControl.GestureRecognizers>
+      <!-- <local:PanGestureRecognizer RequiredPointers="3" /> -->
+      <local:PinchToZoomGestureRecognizer IsZoomable="True" />
+    </local:ZoomControl.GestureRecognizers>
 
-    <Canvas Name="PanAndZoomCanvas" Width="300" Height="300" Background="WhiteSmoke">
-
+    <Canvas Width="300" Height="300" Background="WhiteSmoke">
       <Rectangle Canvas.Left="100" Canvas.Top="100" Width="100" Height="100" Fill="Red" />
-
     </Canvas>
 
-  </Panel>
+  </local:ZoomControl>
 
 </Window>
