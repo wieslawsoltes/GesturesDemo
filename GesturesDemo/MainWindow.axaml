@@ -5,12 +5,13 @@
         xmlns:input="clr-namespace:Avalonia.Input"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="GesturesDemo.MainWindow"
+        Width="800" Height="450" WindowStartupLocation="CenterScreen"
         Title="GesturesDemo">
 
   <Panel Name="PanAndZoomPanel" Background="Transparent">
 
     <Panel.GestureRecognizers>
-      <input:PanGestureRecognizer RequiredPointers="3" />
+      <!-- <input:PanGestureRecognizer RequiredPointers="3" /> -->
       <input:PinchToZoomGestureRecognizer IsZoomable="True" />
     </Panel.GestureRecognizers>
 
