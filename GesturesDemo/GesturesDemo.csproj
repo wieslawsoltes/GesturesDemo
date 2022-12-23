@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType Condition="'$(Configuration)' == 'Debug'">Exe</OutputType>
-    <OutputType Condition="'$(Configuration)' == 'Release'">WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
@@ -9,8 +8,10 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
-    <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="$(XamlNameReferenceGeneratorVersion)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gestures\Gestures.csproj" />
   </ItemGroup>
 </Project>

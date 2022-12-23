@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace GesturesDemo;
+namespace GesturesDemo.Desktop;
 
 class Program
 {

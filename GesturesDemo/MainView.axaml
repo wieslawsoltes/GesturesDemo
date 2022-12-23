@@ -2,22 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:GesturesDemo"
+             xmlns:g="clr-namespace:Gestures;assembly=Gestures"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="GesturesDemo.MainView">
 
-  <local:ZoomControl Name="PanAndZoomPanel">
+  <g:ZoomControl Name="PanAndZoomPanel">
 
-    <local:ZoomControl.GestureRecognizers>
-      <!-- <local:PanGestureRecognizer RequiredPointers="3" /> -->
-      <local:PinchToZoomGestureRecognizer IsZoomable="True" />
-    </local:ZoomControl.GestureRecognizers>
+    <g:ZoomControl.GestureRecognizers>
+      <!-- <g:PanGestureRecognizer RequiredPointers="3" /> -->
+      <g:PinchToZoomGestureRecognizer IsZoomable="True" />
+    </g:ZoomControl.GestureRecognizers>
 
     <Canvas Width="300" Height="300" Background="WhiteSmoke">
       <Rectangle Canvas.Left="100" Canvas.Top="100" Width="100" Height="100" Fill="Red" />
     </Canvas>
 
-  </local:ZoomControl>
+  </g:ZoomControl>
 
 </UserControl>
 

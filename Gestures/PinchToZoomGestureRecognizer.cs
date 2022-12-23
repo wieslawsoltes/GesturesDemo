@@ -5,7 +5,7 @@ using Avalonia.Input;
 using Avalonia.Input.GestureRecognizers;
 using Avalonia.Interactivity;
 
-namespace GesturesDemo;
+namespace Gestures;
 
 public class PinchToZoomGestureEventArgs : RoutedEventArgs
 {

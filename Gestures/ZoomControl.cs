@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 
-namespace GesturesDemo;
+namespace Gestures;
 
 public class ZoomControl : Border
 {
@@ -26,7 +26,8 @@ public class ZoomControl : Border
 
         Child.RenderTransform ??= new MatrixTransform(Matrix.Identity);
 
-        Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}'");
+        // Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}'");
+
         var scale = e.Scale;
         var offset = e.Offset;
         var matrix = Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offset.X, offset.Y);
@@ -49,7 +50,7 @@ public class ZoomControl : Border
 
         Child.RenderTransform ??= new MatrixTransform(Matrix.Identity);
 
-        Console.WriteLine($"[Pan] GestureId='{e.GestureId}', Delta='{e.Delta}', Velocity='{e.Velocity}'");
+        // Console.WriteLine($"[Pan] GestureId='{e.GestureId}', Delta='{e.Delta}', Velocity='{e.Velocity}'");
 
         var matrix = Matrix.CreateTranslation(e.Delta.X, e.Delta.Y);
 
