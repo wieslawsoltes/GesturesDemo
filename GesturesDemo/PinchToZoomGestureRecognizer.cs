@@ -76,13 +76,16 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
         {
             return;
         }
-        if (_primaryPointer == null)
+
+        if (_primaryPointer == null &&
+            (e.Pointer.Type == PointerType.Touch || e.Pointer.Type == PointerType.Pen))
         {
             _primaryPointer = e.Pointer;
             _lastPrimaryTimestamp = e.Timestamp;
             _initialPrimaryPosition = e.GetPosition((Visual?)_target);
         }
-        else if (_secondaryPointer == null)
+        else if (_secondaryPointer == null &&
+                 (e.Pointer.Type == PointerType.Touch || e.Pointer.Type == PointerType.Pen))
         {
             _gestureId = PanGestureEventArgs.GetNextFreeId();
             _secondaryPointer = e.Pointer;
