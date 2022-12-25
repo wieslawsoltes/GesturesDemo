@@ -28,11 +28,14 @@ public class ZoomControl : Border
 
         Child.RenderTransform ??= new MatrixTransform(Matrix.Identity);
 
-        // Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}'");
+        // Console.WriteLine($"[PinchToZoom] GestureId='{e.GestureId}', Scale='{e.Scale}', Offset='{e.Offset}', Velocity='{e.Velocity}', Rotation='{e.Rotation}'");
 
         var scale = e.Scale;
         var offset = e.Offset;
-        var matrix = Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(offset.X, offset.Y);
+        var rotation = e.Rotation;
+        var matrix = Matrix.CreateScale(scale, scale) 
+                     * Matrix.CreateTranslation(offset.X, offset.Y) 
+                     * Matrix.CreateRotation(rotation);
 
         if (_pinchToZoomGestureId != e.GestureId)
         {

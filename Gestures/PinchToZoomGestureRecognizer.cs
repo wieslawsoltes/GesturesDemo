@@ -13,19 +13,21 @@ public class PinchToZoomGestureEventArgs : RoutedEventArgs
 
     public static int GetNextFreeId() => Interlocked.Increment(ref _nextFreeId);
 
-    public PinchToZoomGestureEventArgs(int gestureId, double scale, Point offset, Vector velocity)
+    public PinchToZoomGestureEventArgs(int gestureId, double scale, Point offset, Vector velocity, double rotation)
         : base(PinchToZoomGestureRecognizer.PinchToZoomGestureEvent)
     {
         GestureId = gestureId;
         Scale = scale;
         Offset = offset;
         Velocity = velocity;
+        Rotation = rotation;
     }
 
     public int GestureId { get; }
     public double Scale { get; }
     public Point Offset { get; }
     public Vector Velocity { get; }
+    public double Rotation { get; }
 }
 
 public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
@@ -41,6 +43,7 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
     private Point _initialPrimaryPosition;
     private Point _initialSecondaryPosition;
     private Point _initialCenter;
+    private double _initialAngle;
     private double _initialScale;
     private Point _initialOffset;
     private bool _isZoomable;
@@ -90,7 +93,7 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
             _gestureId = PanGestureEventArgs.GetNextFreeId();
             _secondaryPointer = e.Pointer;
             _lastSecondaryTimestamp = e.Timestamp;
-            _initialSecondaryPosition = e.GetPosition((Visual?)_target);
+            _initialSecondaryPosition = e.GetPosition((Visual?)_target); 
         }
         else // More than two pointers already pressed, end gesture
         {
@@ -143,6 +146,7 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
                 _initialDistance = GetDistance(_initialPrimaryPosition, _initialSecondaryPosition);
                 _initialCenter = GetCenter(_initialPrimaryPosition, _initialSecondaryPosition);
                 _initialScale = 1;
+                _initialAngle = CalculateAngle(_initialPrimaryPosition, _initialSecondaryPosition);
                 _initialOffset = default;
                 _actions!.Capture(_primaryPointer, this);
                 _actions!.Capture(_secondaryPointer, this);
@@ -164,6 +168,8 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
             var currentCenter = GetCenter(currentPrimaryPosition, currentSecondaryPosition);
             var currentScale = currentDistance / _initialDistance;
             var currentOffset = currentCenter - _initialCenter;
+            var currentAngle = CalculateAngle(currentPrimaryPosition, currentSecondaryPosition);
+            var currentRotation = currentAngle - _initialAngle;
 
             var primaryTimeDelta = e.Timestamp - _lastPrimaryTimestamp;
             var secondaryTimeDelta = e.Timestamp - _lastSecondaryTimestamp;
@@ -173,7 +179,7 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
             var secondaryVelocity =
                 (currentSecondaryPosition - _initialSecondaryPosition) / secondaryTimeDeltaSeconds;
             var averageVelocity = (primaryVelocity + secondaryVelocity) / 2;
-            var args = new PinchToZoomGestureEventArgs(_gestureId, currentScale, currentOffset, averageVelocity);
+            var args = new PinchToZoomGestureEventArgs(_gestureId, currentScale, currentOffset, averageVelocity, currentRotation);
             _target?.RaiseEvent(args);
         }
     }
@@ -209,6 +215,7 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
         _initialSecondaryPosition = default;
         _initialCenter = default;
         _initialScale = 0;
+        _initialAngle = 0;
         _initialOffset = default;
     }
 
@@ -222,5 +229,10 @@ public class PinchToZoomGestureRecognizer : StyledElement, IGestureRecognizer
     private Point GetCenter(Point p1, Point p2)
     {
         return new Point((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+    }
+
+    private double CalculateAngle(Point p1, Point p2)
+    {
+        return Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
     }
 }
